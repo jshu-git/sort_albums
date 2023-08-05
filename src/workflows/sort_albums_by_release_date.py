@@ -4,10 +4,7 @@ from pprint import pprint
 
 
 def sort_albums_by_release_date():
-    sorter = AlbumSorter(
-        client_id="",
-        client_secret="",
-    )
+    sorter = AlbumSorter()
 
     # get all saved albums
     saved_albums = sorter.get_saved_albums()
@@ -32,10 +29,10 @@ def sort_albums_by_release_date():
     sorter.save_albums(album_ids)
 
     # test if sorted
-    # sorted = sorter.is_sorted(
-    #     albums=sorter.get_saved_albums(), key=lambda album: album.release_date, desc=True
-    # )
-    # print(f"Sorted: {sorted}")
+    sorted = sorter.is_sorted(
+        albums=sorter.get_saved_albums(), key=lambda album: album.release_date, desc=True
+    )
+    print(f"Sorted: {sorted}")
 
 
 if __name__ == "__main__":

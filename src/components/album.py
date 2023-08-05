@@ -1,4 +1,5 @@
 from pprint import pprint
+from os import environ
 
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
@@ -21,16 +22,14 @@ class Album:
 class AlbumSorter:
     def __init__(
         self,
-        client_id,
-        client_secret,
         redirect_uri="http://localhost:7777/callback",
         scope="user-library-read user-library-modify",
     ):
         self.log = getLogger()
         self.sp = Spotify(
             auth_manager=SpotifyOAuth(
-                client_id=client_id,
-                client_secret=client_secret,
+                client_id=environ.get("CLIENT_ID"),
+                client_secret=environ.get("CLIENT_SECRET"),
                 redirect_uri=redirect_uri,
                 scope=scope,
             )
