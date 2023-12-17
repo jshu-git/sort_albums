@@ -6,19 +6,19 @@ a simple python script to sort saved spotify albums by release date (because spo
 2. `pip install -r requirements.txt`
 4. `export CLIENT_ID='' ; export CLIENT_SECRET=''`
 
-### Usage
+#### Usage
 1. `python main.py`
     - this script sorts your albums by release date
-    - it will also backup your current album order to a file (`backup.json`) in case you want to restore it later
+    - it will also backup your current album order to a file (defaults to `backup.json`) in case you want to restore it later
 
 2. `python backup.py`
-    - this script backs up your current album order to a file (`backup.json`)
+    - this script backs up your current album order to a file
 
 3. `python restore.py`
-    - this script restores your album order from the backup file (`backup.json`)
+    - this script restores your album order from the backup file
 
 #### some notes
-- the very first time a script is run, you may need to open a link in a web browser to authorize spotify
+- the very first time the script is run, you may need to open a link in your browser to authorize spotify
     - it may open and close automatically if you are already logged into spotify
-- currently, only one `backup.json` file is supported
-    - if you want to have multiple backups, you will need to manually rename the file for now
+- the backup file defaults to `backup.json`
+    - this can be changed by setting the `BACKUP_PATH` environment variable

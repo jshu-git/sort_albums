@@ -9,18 +9,18 @@ from spotipy.oauth2 import SpotifyOAuth
 from .album         import Album
 
 class Sorter:
-    def __init__(self, backup_path='backup.json'):
+    def __init__(self):
         auth             = SpotifyOAuth(client_id     = environ.get('CLIENT_ID'),
                                         client_secret = environ.get('CLIENT_SECRET'),
                                         redirect_uri  = 'http://localhost:7777/callback',
                                         scope         = 'user-library-read user-library-modify')
         self.sp          = Spotify(auth_manager=auth)
-        self.backup_path = backup_path
+        self.backup_path = environ.get('BACKUP_PATH') or 'backup.json'
 
     # entry points
     def backup(self, albums):
         '''
-        This function backs up the given albums to a local JSON file.
+        This function backs up the given albums to the backup path.
         '''
         albums_sorted_by_added_at = self.sort_albums(albums=albums, field='added_at')
         albums_as_dict            = [album.to_dict() for album in albums_sorted_by_added_at]
@@ -30,7 +30,7 @@ class Sorter:
 
     def restore(self):
         '''
-        This function saves albums to the user's library by reading a local JSON file.
+        This function saves albums to the user's library by reading albums from the backup path.
         '''
         with open(self.backup_path, 'r') as f:
             album_data = load(f)
@@ -99,4 +99,4 @@ class Sorter:
         elif field == 'added_at':
             return lambda album: album.added_at
         else:
-            raise ValueError(f"invalid field '{field}'")
+            raise ValueError(f'invalid field: {field}')
