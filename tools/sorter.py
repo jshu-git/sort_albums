@@ -1,5 +1,5 @@
 from time           import sleep
-from os             import environ
+from os             import environ, path
 from json           import dump, load
 
 from spotipy        import Spotify
@@ -15,7 +15,7 @@ class Sorter:
                                         redirect_uri  = 'http://localhost:7777/callback',
                                         scope         = 'user-library-read user-library-modify')
         self.sp          = Spotify(auth_manager=auth)
-        self.backup_path = environ.get('BACKUP_PATH') or 'backup.json'
+        self.backup_path = path.expanduser(environ.get('BACKUP_PATH')) or 'backup.json'
 
     # entry points
     def backup(self, albums):
