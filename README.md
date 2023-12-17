@@ -1,4 +1,4 @@
-a simple python script to sort saved spotify albums by release date (because spotify doesn't provide the option to)
+a simple python program to sort your saved spotify albums by release date (because spotify doesn't provide the option to)
 
 #### Setup
 1. create an app from https://developer.spotify.com/dashboard
