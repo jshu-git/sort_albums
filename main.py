@@ -29,6 +29,7 @@ if __name__ == '__main__':
     # sort by release date
     albums_sorted_by_date = sorter.sort_albums(saved_albums, field='date')
 
+    print('sorting...')
     # remove all
     sorter.remove_albums(albums_sorted_by_date)
 
@@ -39,5 +40,4 @@ if __name__ == '__main__':
     if sorter.is_sorted(saved_albums, field='date'):
         print('sorted!')
     else:
-        pprint(albums_sorted_by_date)
-        raise Exception('not sorted, please try again')
+        raise Exception('not sorted. the API may have messed up the order. restore from backup (optional) and try again')
