@@ -15,13 +15,16 @@ if __name__ == '__main__':
 
     # backup
     sorter.backup(saved_albums)
+    print(f'backed up current album order to: {sorter.backup_path}')
 
     # check if already sorted
     if sorter.is_sorted(saved_albums, field='date'):
         print('albums already sorted')
         exit(0)
-    else:
-        print('sorting albums')
+
+    input('about to sort albums. this will remove all your saved albums and then save them in sorted order. '
+          'if you want to restore your current order with the above backup, run the restore.py script.\n'
+          'press Enter to continue...')
 
     # sort by release date
     albums_sorted_by_date = sorter.sort_albums(saved_albums, field='date')
