@@ -15,7 +15,8 @@ class Sorter:
                                         redirect_uri  = 'http://localhost:7777/callback',
                                         scope         = 'user-library-read user-library-modify')
         self.sp          = Spotify(auth_manager=auth)
-        self.backup_path = path.expanduser(environ.get('BACKUP_PATH')) or 'backup.json'
+        backup_path      = environ.get('BACKUP_PATH') or 'backup.json'
+        self.backup_path = path.expanduser(backup_path)
 
     # entry points
     def backup(self, albums):
@@ -87,13 +88,13 @@ class Sorter:
 
     # helpers
     def sort_albums(self, albums, field):
-        return sorted(albums, key=self._get_key_from_field(field))
+        return sorted(albums, key=self._get_key(field))
 
     def is_sorted(self, albums, field):
-        key = self._get_key_from_field(field)
+        key = self._get_key(field)
         return all(key(albums[i]) >= key(albums[i + 1]) for i in range(len(albums) - 1))
 
-    def _get_key_from_field(self, field):
+    def _get_key(self, field):
         if field == 'date':
             return lambda album: album.date
         elif field == 'added_at':
